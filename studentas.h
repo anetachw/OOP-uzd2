@@ -21,7 +21,7 @@ public:
     inline int egz() const { return egzaminas_; } 
 
     std::istream& readStudent(std::istream&);
-    double galBalas(double (*) (std::vector<int>) = vidurkis) const;    
+    double galBalas(double (*funkcija) (std::vector<int>)) const;    
 };
 
 //reserve metodas
