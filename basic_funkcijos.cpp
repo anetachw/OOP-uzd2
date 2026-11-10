@@ -2,10 +2,10 @@
 #include <iostream>
 #include <iomanip>
 #include <numeric>
+#include <vector>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <cctype>
 
 
 int ar_skaicius(std::string tekstas, int min, int max){
@@ -79,6 +79,29 @@ void generuoti_faila(std::string failoPavadinimas, int stud_kiekis, int nd_kieki
 bool failas_egzistuoja(const std::string &failoPavadinimas){
     std::ifstream f(failoPavadinimas.data());
     return f.is_open();
+};
+
+double vidurkis(std::vector<int> paz){
+    if (paz.empty()){
+        return 0.0;
+    }
+    double suma = std::accumulate(paz.begin(), paz.end(), 0.0);
+    return suma / paz.size();
+};
+
+double mediana(std::vector<int> paz) {
+    if (paz.empty()) return 0.0;
+
+    std::vector<int> v(paz.begin(), paz.end());
+    
+    std::sort(v.begin(), v.end());
+    size_t n = v.size();
+
+    if (n % 2 != 0) {
+        return v[n / 2];
+    } else {
+        return (v[(n - 1) / 2] + v[n / 2]) / 2.0;
+    }
 };
 
 
