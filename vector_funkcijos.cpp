@@ -10,54 +10,6 @@
 #include <chrono>
 
 
-void automatine_ivestis(std::vector<Studentas> &grupe, std::mt19937 &mt){
-    int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 1000000);
-    grupe.reserve(grupe.size() + stud_kiekis);
-
-    int nd_kiekis = ar_skaicius("Įveskite kiek namų darbų pažymių norite sugeneruoti: ", 1, 10); 
-
-    for(int j=0; j < stud_kiekis; j++){
-        Studentas tempStudentas;
-        //tempStudentas.paz().reserve(nd_kiekis);
-        tempStudentas.vardas() = "Vardas" + std::to_string(j + 1);
-        tempStudentas.pavarde() = "Pavarde" + std::to_string(j + 1);
-        generuoti_paz(tempStudentas, nd_kiekis, mt);
-        grupe.push_back(tempStudentas);
-    }
-};
-
-void nuskaityti_faila(std::vector<Studentas> &grupe, const std::string failoPavadinimas){
-    std::ifstream f(failoPavadinimas, std::ios::ate);
-
-    if(!f.is_open()){
-        std::cout << "Nepavyko atidaryti failo: " << failoPavadinimas << '\n';
-        return;
-    }
-
-    std::streamsize file_size = f.tellg();
-    f.seekg(0, std::ios::beg); 
-    size_t eil_sk = file_size / 134;
-    grupe.reserve(grupe.size() + eil_sk);
-    
-    std::string eilute;
-    std::getline (f, eilute);
-
-    std::stringstream ss;
-    while(std::getline(f, eilute)){
-        if (eilute.empty()) continue;
-        ss.str(eilute);
-        ss.clear();
-
-        std::istringstream ss(eilute);
-        Studentas tempStudentas;
-        tempStudentas.readStudent(ss);
-
-        grupe.push_back(tempStudentas);
-    }
-
-    f.close();
-};
-
 void rusiavimasPV(std::vector<Studentas> &grupe){
     std::sort(grupe.begin(), grupe.end(),
         [](const Studentas &a, const Studentas &b){
@@ -71,7 +23,7 @@ void rusiavimasPV(std::vector<Studentas> &grupe){
 void rusiavimasG(std::vector<Studentas> &grupe){
     std::sort(grupe.begin(), grupe.end(),
         [](const Studentas &a, const Studentas &b){
-            return a.galBalas(vidurkis) > a.galBalas(vidurkis);
+            return a.galBalas(vidurkis) > b.galBalas(vidurkis);
     });
 };
 

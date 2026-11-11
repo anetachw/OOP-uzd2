@@ -10,19 +10,6 @@
 #include <chrono>
 
 
-void automatine_ivestis(std::list<Studentas> &grupe, std::mt19937 &mt){
-    int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 1000000);
-    int nd_kiekis = ar_skaicius("Įveskite kiek namų darbų pažymių norite sugeneruoti: ", 1, 10); 
-
-    for(int j=0; j < stud_kiekis; j++){
-        Studentas tempStudentas;
-        tempStudentas.vardas() = "Vardas" + std::to_string(j + 1);
-        tempStudentas.pavarde() = "Pavarde" + std::to_string(j + 1);
-        generuoti_paz(tempStudentas, nd_kiekis, mt);
-        grupe.push_back(tempStudentas);
-    }
-
-};
 
 void nuskaityti_faila(std::list<Studentas> &grupe, const std::string failoPavadinimas){
     std::ifstream f(failoPavadinimas, std::ios::ate);

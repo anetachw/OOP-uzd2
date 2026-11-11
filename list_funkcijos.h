@@ -1,14 +1,8 @@
 #pragma once 
 
 #include "studentas.h"
-#include <string>
 #include <list>
-#include <random>
 
-
-void automatine_ivestis(std::list<Studentas> &grupe, std::mt19937 &mt);
-
-void nuskaityti_faila(std::list<Studentas> &grupe, const std::string failoPavadinimas);
 
 void rusiavimasPV(std::list<Studentas> &grupe);
 

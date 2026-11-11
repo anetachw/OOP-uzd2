@@ -11,8 +11,20 @@
 
 
 template <typename T>
+void reserve_vietos(std::vector<T> grupe, int kiekis){
+    grupe.reserve(grupe.size() + kiekis);
+}; 
+
+template <typename T>
+void reserve_vietos(std::list<T> grupe, int kiekis){
+    
+}; 
+
+template <typename T>
 void rankine_ivestis(T &grupe){
     int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 30);
+
+    reserve_vietos(grupe, stud_kiekis);
 
     for(int j=0; j < stud_kiekis; j++){
         std::cout << "\nStudentas Nr. " << (j+1) << "\n";
@@ -24,23 +36,71 @@ void rankine_ivestis(T &grupe){
 };
 
 template <typename T>
-void printas(const T &A){
-    std::cout << "|" << std::left << std::setw(14) << A.vardas() 
-              << "|" << std::left << std::setw(16) << A.pavarde() << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galbalas(vidurkis) << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galBalas(mediana)<<  "|\n";
-};
-
-template <typename T>
 void generuoti_paz(T &A, int count, std::mt19937 &mt){
     std::uniform_int_distribution<int> dist(1, 10);
 
     for(int i = 1; i <= count; i++){
         int num = dist(mt);
-        A.paz().push_back(num);
+        A.setPazymis(num);
     }
-    A.egz() = dist(mt);
+    A.setEgzaminas(dist(mt));
 };
+
+template <typename T>
+void automatine_ivestis(T &grupe, std::mt19937 &mt){
+    int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 1000000);
+    int nd_kiekis = ar_skaicius("Įveskite kiek namų darbų pažymių norite sugeneruoti: ", 1, 10); 
+
+    reserve_vietos(grupe, stud_kiekis);
+    
+    for(int j=0; j < stud_kiekis; j++){
+        Studentas tempStudentas;
+        tempStudentas.setVardas("Vardas" + std::to_string(j + 1));
+        tempStudentas.setPavarde("Pavarde" + std::to_string(j + 1));
+        generuoti_paz(tempStudentas, nd_kiekis, mt);
+        grupe.push_back(tempStudentas);
+    }
+
+};
+
+template <typename T>
+void nuskaityti_faila(T &grupe, const std::string failoPavadinimas){
+    std::ifstream f(failoPavadinimas, std::ios::ate);
+
+    if(!f.is_open()){
+        std::cout << "Nepavyko atidaryti failo: " << failoPavadinimas << '\n';
+        return;
+    }
+
+    std::streamsize file_size = f.tellg();
+    f.seekg(0, std::ios::beg); 
+    size_t eil_sk = file_size / 134;
+    reserve_vietos(grupe, eil_sk);
+    
+
+    std::string eilute;
+    std::getline (f, eilute);
+
+    while(f){
+        Studentas tempStudentas; 
+        if (tempStudentas.readStudent(f)){
+            grupe.push_back(tempStudentas);
+        } else{
+            break;
+        }
+    }
+
+    f.close();
+};
+
+template <typename T>
+void printas(const T &A){
+    std::cout << "|" << std::left << std::setw(14) << A.vardas() 
+              << "|" << std::left << std::setw(16) << A.pavarde() << "|"
+              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galBalas(vidurkis) << "|"
+              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galBalas(mediana)<<  "|\n";
+};
+
 
 template <typename T>
 void rodyti_lentele(const T &grupe){
