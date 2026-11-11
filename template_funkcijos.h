@@ -23,13 +23,62 @@ void reserve_vietos(std::list<T> grupe, int kiekis){
 template <typename T>
 void rankine_ivestis(T &grupe){
     int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 30);
-
     reserve_vietos(grupe, stud_kiekis);
 
     for(int j=0; j < stud_kiekis; j++){
+        Studentas tempStudentas;
         std::cout << "\nStudentas Nr. " << (j+1) << "\n";
-        Studentas tempStudentas(std::cin);
-    
+        std::string v, p;
+        std::cout << "Įveskite per tarpa studento vardą ir pavardę: ";
+        std::cin >> v >> p;
+        tempStudentas.setVardas(v);
+        tempStudentas.setPavarde(p);
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::string input1;
+        std::cout << "Įveskite namų darbų pažymius (spauskite ENTER, kad baigti):\n";
+        int i = 1;
+
+        while(true){
+            std::cout << "Įveskite #" << i << " pažymį: ";
+            std::getline(std::cin, input1);
+
+            if (input1.empty()) break;
+
+            try {
+                int paz = std::stoi(input1);
+                if (paz >= 1 && paz <= 10){
+                    tempStudentas.setPazymis(paz);
+                    i++;
+                }
+                else {
+                    std::cout << "Klaida! Pažymis turi būti nuo 1 iki 10.\n";
+                }
+            }
+            catch (...){
+                std::cout << "Klaida! Ivedėte ne skaičių, bandykite dar karta.\n";
+            }
+        }
+
+        std::string input2;
+        while(true){
+            std::cout << "Įveskite egzamino pažymį: ";
+            std::getline(std::cin, input2);
+
+            try{
+                int egz = std::stoi(input2);
+                if (egz >= 1 && egz <= 10){
+                    tempStudentas.setEgzaminas(egz);
+                    break;
+                }
+                else {
+                    std::cout << "Klaida! Pažymis turi būti nuo 1 iki 10.\n";
+                }
+            } catch (...) {
+                std::cout << "Klaida! Ivedėte ne skaičių, bandykite dar karta.\n";
+            }
+        }
+        
         grupe.push_back(tempStudentas);
         std::cout << "Objekto adresas atmintyje: " << &(grupe.back()) << '\n'; 
     }
@@ -50,7 +99,6 @@ template <typename T>
 void automatine_ivestis(T &grupe, std::mt19937 &mt){
     int stud_kiekis = ar_skaicius("Įveskite studentų kiekį: ", 1, 1000000);
     int nd_kiekis = ar_skaicius("Įveskite kiek namų darbų pažymių norite sugeneruoti: ", 1, 10); 
-
     reserve_vietos(grupe, stud_kiekis);
     
     for(int j=0; j < stud_kiekis; j++){
@@ -65,23 +113,23 @@ void automatine_ivestis(T &grupe, std::mt19937 &mt){
 
 template <typename T>
 void nuskaityti_faila(T &grupe, const std::string failoPavadinimas){
-    std::ifstream f(failoPavadinimas, std::ios::ate);
+    std::ifstream f(failoPavadinimas);
 
     if(!f.is_open()){
         std::cout << "Nepavyko atidaryti failo: " << failoPavadinimas << '\n';
         return;
     }
 
+    f.seekg(0, std::ios::end); 
     std::streamsize file_size = f.tellg();
     f.seekg(0, std::ios::beg); 
     size_t eil_sk = file_size / 134;
     reserve_vietos(grupe, eil_sk);
     
-
     std::string eilute;
     std::getline (f, eilute);
 
-    while(f){
+    while(true){
         Studentas tempStudentas; 
         if (tempStudentas.readStudent(f)){
             grupe.push_back(tempStudentas);
@@ -318,8 +366,8 @@ void paleisti_programa(std::mt19937 &mt){
                     std::string failas;
                     std::cin >> failas; 
                     nuskaityti_faila(grupe, failas);
-                    rusiavimo_meniu(grupe);
                     if(!grupe.empty()){
+                        rusiavimo_meniu(grupe);
                         rodyti_rezultatus(grupe);
                     }
                     break;
@@ -370,7 +418,7 @@ void paleisti_programa(std::mt19937 &mt){
                     grupe.clear();
                     kietiakai.clear();
                     vargsiukai.clear();
-                    std::cout << "Studentų duomenis išvalyti";
+                    std::cout << "Studentų duomenis išvalyti\n";
                     break;
                 }   
             }

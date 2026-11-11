@@ -1,52 +1,19 @@
 #include "basic_funkcijos.h"
 #include "list_funkcijos.h"
 #include "template_funkcijos.h"
+#include "studentas.h"
 #include <iostream>
 #include <iomanip>
 #include <numeric>
-#include <fstream>
-#include <sstream>
 #include <algorithm>
-#include <chrono>
 
-
-
-void nuskaityti_faila(std::list<Studentas> &grupe, const std::string failoPavadinimas){
-    std::ifstream f(failoPavadinimas, std::ios::ate);
-
-    if(!f.is_open()){
-        std::cout << "Nepavyko atidaryti failo: " << failoPavadinimas << '\n';
-        return;
-    };
-    
-    std::string eilute;
-    std::getline (f, eilute);
-
-    while(f){
-        Studentas tempStudentas; 
-        if (tempStudentas.readStudent(f)){
-            grupe.push_back(tempStudentas);
-        } else{
-            break;
-        }
-    }
-
-    f.close();
-};
 
 void rusiavimasPV(std::list<Studentas> &grupe){
-    grupe.sort([](const Studentas &a, const Studentas &b){
-        if (a.pavarde() != b.pavarde()){
-            return a.pavarde() < b.pavarde();
-        }
-        return a.vardas() < b.vardas();
-    });
+    grupe.sort(compareVP);
 };
 
 void rusiavimasG(std::list<Studentas> &grupe){
-    grupe.sort([](const Studentas &a, const Studentas &b){
-            return a.galBalas(vidurkis) > b.galBalas(vidurkis);
-    });
+    grupe.sort(compareGalBalas);
 };
 
 void dalinti_studentus1(std::list<Studentas> &grupe, std::list<Studentas> &kietiakai, std::list<Studentas> &vargsiukai){

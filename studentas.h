@@ -21,7 +21,14 @@ public:
     inline int egz() const { return egzaminas_; } 
 
     std::istream& readStudent(std::istream&);
-    double galBalas(double (*funkcija) (std::vector<int>)) const;    
+    double galBalas(double (*funkcija) (std::vector<int>)) const;
+    void setVardas(const std::string& v) { vardas_ = v; }
+    void setPavarde(const std::string& p) { pavarde_ = p; }
+    void setPazymis(int paz) { paz_.push_back(paz); }
+    void setEgzaminas(int egz) { egzaminas_ = egz; }   
 };
 
-//reserve metodas
+bool compareVP(const Studentas& a, const Studentas& b);
+bool compareEgzaminas(const Studentas& a, const Studentas& b);
+bool compareGalBalas(const Studentas& a , const Studentas& b);
+

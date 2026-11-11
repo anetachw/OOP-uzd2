@@ -1,6 +1,7 @@
 #include "basic_funkcijos.h"
 #include "vector_funkcijos.h"
 #include "template_funkcijos.h"
+#include "studentas.h"
 #include <iostream>
 #include <iomanip>
 #include <numeric>
@@ -11,20 +12,11 @@
 
 
 void rusiavimasPV(std::vector<Studentas> &grupe){
-    std::sort(grupe.begin(), grupe.end(),
-        [](const Studentas &a, const Studentas &b){
-            if (a.pavarde() != b.pavarde()){
-                return a.pavarde() < b.pavarde();
-            }
-            return a.vardas() < b.vardas();
-    });
+    std::sort(grupe.begin(), grupe.end(), compareVP);
 };
 
 void rusiavimasG(std::vector<Studentas> &grupe){
-    std::sort(grupe.begin(), grupe.end(),
-        [](const Studentas &a, const Studentas &b){
-            return a.galBalas(vidurkis) > b.galBalas(vidurkis);
-    });
+    std::sort(grupe.begin(), grupe.end(), compareGalBalas);
 };
 
 void dalinti_studentus1(std::vector<Studentas> &grupe, std::vector<Studentas> &kietiakai, std::vector<Studentas> &vargsiukai){

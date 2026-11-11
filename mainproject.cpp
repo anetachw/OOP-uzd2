@@ -2,9 +2,9 @@
 #include <iostream>
 #include "studentas.h"
 #include "basic_funkcijos.h"
-#include "Vfunkcijos.h"
-#include "Lfunkcijos.h"
-#include <array>
+#include "vector_funkcijos.h"
+#include "list_funkcijos.h"
+#include "template_funkcijos.h"
 #include <list>
 
 
@@ -16,9 +16,9 @@ int main(){
     int konteineris = ar_skaicius("\nPasirinkite konteinerį (1-2): ", 1, 2);
     
     if (konteineris == 1){
-        paleisti_programa<std::vector<studentasv>>(mt);
+        paleisti_programa<std::vector<Studentas>>(mt);
     }
     else if (konteineris == 2){
-        paleisti_programa<std::list<studentasl>>(mt);
+        paleisti_programa<std::list<Studentas>>(mt);
     }
 }

@@ -1,12 +1,14 @@
 #include "studentas.h"
 #include "basic_funkcijos.h"
+#include "template_funkcijos.h"
+#include <sstream>
 
 
 Studentas::Studentas(std::istream& is) { 
   readStudent(is);  
 }
 
-double Studentas::galBalas(double (*funkcija) (std::vector<int>)) const {
+double Studentas::galBalas(double (*funkcija) (std::vector<int>) = vidurkis) const {
     if (paz_.empty()){
         return 0.6 * egzaminas_;
     }
@@ -16,63 +18,43 @@ double Studentas::galBalas(double (*funkcija) (std::vector<int>)) const {
 }
 
 std::istream& Studentas::readStudent(std::istream& is) {
-    if (&is == &std::cin){
-        std::cout << "Įveskite per tarpa studento vardą ir pavardę: ";
-    }
-
-    if (!(is >> vardas_ >> pavarde_)) return is;
-    is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+   if (!(is >> vardas_ >> pavarde_)) return is;
     
+    paz_.clear();
+    paz_.reserve(10);
+    int pazymys;
+    
+    std::string eilute;
+    std::getline(is, eilute);
+    std::stringstream ss(eilute);
+    
+    std::vector<int> temp_paz;
+    temp_paz.reserve(11);
 
-    if (&is == &std::cin) {
-        std::cout << "Įveskite namų darbų pažymius (palikite tuščią irspauskite ENTER, kad baigti):\n";
+    while (ss >> pazymys) {
+        temp_paz.push_back(pazymys);
     }
-
-    paz_.reserve(11);
-    std::string input1;
-    int i = 1;
-    while (true) {
-        if (&is == &std::cin) {
-            std::cout << "Įveskite #" << i << " pažymį: ";
-        }
-        
-        std::getline(is, input1);
-        if (input1.empty()) break;
-
-        try {
-            int a = std::stoi(input1);
-            if (a >= 1 && a <= 10) {
-                paz_.push_back(a);
-                i++;
-            } else if(&is == &std::cin) {
-                std::cout << "Klaida! Pažymis turi būti nuo 1 iki 10.\n";
-            }
-        } catch (...) {
-            if (&is == &std::cin) {
-                std::cout << "Klaida! Įvedėte ne skaičių.\n";
-            }
-        }
-    }
-
-    while (true) {
-        if (&is == &std::cin) {
-            std::cout << "Įveskite egzamino pažymį: ";
-        }
-        
-        std::getline(is, input1);
-        try {
-            egzaminas_ = std::stoi(input1);
-            if (egzaminas_ >= 1 && egzaminas_ <= 10) {
-                break;
-            } else if (&is == &std::cin) {
-                std::cout << "Klaida! Pažymis turi būti nuo 1 iki 10.\n";
-            }
-        } catch (...) {
-            if (&is == &std::cin) {
-                std::cout << "Klaida! Įvedėte ne skaičių.\n";
-            }
-        }
+    
+    if (!temp_paz.empty()) {
+        egzaminas_ = temp_paz.back(); 
+        temp_paz.pop_back();          
+        paz_ = temp_paz;              
     }
 
     return is;
+};
+
+bool compareVP(const Studentas& a, const Studentas& b){
+    if (a.pavarde() != b.pavarde()){
+            return a.pavarde() < b.pavarde();
+        }
+    return a.vardas() < b.vardas();
+};
+
+bool compareEgzaminas(const Studentas& a, const Studentas& b){
+    return a.egz() > b.egz();
+};
+
+bool compareGalBalas(const Studentas& a , const Studentas& b){
+    return a.galBalas() > b.galBalas();
 };
