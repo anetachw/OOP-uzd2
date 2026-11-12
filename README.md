@@ -154,7 +154,7 @@ Versijoje v0.3 pagrindinis dėmesys skirtas `std::vector` ir `std::list` kontein
 Analizuojant `std::vector` ir `std::list` konteinerių veikimo spartą pastebimi ryškūs skirtumai, kurie labiausiai išryškėja apdorojant didesnius duomenų kiekius. Mažesniems failams (stud1000.txt ir stud10000.txt) laiko sąnaudos tarp abiejų variantų skiriasi nežymiai ir visų trijų dalijimo strategijų trukmė išlieka milisekundžių ribose. Tačiau didėjant studentų skaičiui iki 10 000 000, `std::vector` konteineris pademonstravo geresnį efektyvumą: jame pirmasis dalijimas užtruko apie 0.55 s, o antrasis – 0.32 s, tuo tarpu `std::list` konteineryje šie procesai reikalavo atitinkamai net 14.15 s ir 6.42 s. Trečiasis dalijimas abu kartus išliko greičiausias ir efektyviausias, tačiau pirmame konteineryje jis taip pat atliktas pastebimai sparčiau (0.16 s lyginant su 3.67 s).
 
 ### Versija v1.1
-Šioje versijoje pagrindinis dėmesys skirtas Perėjimui nuo Struktūros prie C++ klasės. 
+Šioje versijoje pagrindinis dėmesys skirtas perėjimui nuo struktūros prie C++ klasės. 
 #### Pagrindiniai releaso ypatumai:
 - **Perėjimas prie class:** Struktūra `Studentas` buvo pakeista į pilnavertę klasę, aiškiai atskiriant duomenų kapsuliavimą ir interfeisą.
 - **Konstruktoriai ir destruktoriai:** Klasėje realizuoti konstruktoriai bei destruktoriai, užtikrinantys saugų objektų inicijavimą ir atminties valdymą.
