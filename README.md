@@ -153,6 +153,12 @@ Versijoje v0.3 pagrindinis dėmesys skirtas `std::vector` ir `std::list` kontein
 
 Analizuojant `std::vector` ir `std::list` konteinerių veikimo spartą pastebimi ryškūs skirtumai, kurie labiausiai išryškėja apdorojant didesnius duomenų kiekius. Mažesniems failams (stud1000.txt ir stud10000.txt) laiko sąnaudos tarp abiejų variantų skiriasi nežymiai ir visų trijų dalijimo strategijų trukmė išlieka milisekundžių ribose. Tačiau didėjant studentų skaičiui iki 10 000 000, `std::vector` konteineris pademonstravo geresnį efektyvumą: jame pirmasis dalijimas užtruko apie 0.55 s, o antrasis – 0.32 s, tuo tarpu `std::list` konteineryje šie procesai reikalavo atitinkamai net 14.15 s ir 6.42 s. Trečiasis dalijimas abu kartus išliko greičiausias ir efektyviausias, tačiau pirmame konteineryje jis taip pat atliktas pastebimai sparčiau (0.16 s lyginant su 3.67 s).
 
+### Versija v1.1
+Šioje versijoje pagrindinis dėmesys skirtas Perėjimui nuo Struktūros prie C++ klasės. 
+#### Pagrindiniai releaso ypatumai:
+- **Perėjimas prie class:** Struktūra `Studentas` buvo pakeista į pilnavertę klasę, aiškiai atskiriant duomenų kapsuliavimą ir interfeisą.
+- **Konstruktoriai ir destruktoriai:** Klasėje realizuoti konstruktoriai bei destruktoriai, užtikrinantys saugų objektų inicijavimą ir atminties valdymą.
+
 ---
 ### Spartos analizė
 Spartos analizė atlikta dirbant su `std::vector` ir `std::list` konteineriais naudojant iš anksto sugeneruotus testinius failus. Kiekvienas testas kartotas 5 kartus, o lentelėje pateikti gautų laiko matavimų vidurkiai sekundėmis.
@@ -252,3 +258,61 @@ Spartos analizėje studentų dalijimui panaudota greičiausia 3 dalijimo strateg
 <img width="345" height="485" alt="image" src="https://github.com/user-attachments/assets/269d5002-4515-4183-acad-8cbc307b15a8" />
 
 Remiantis atlikta spartos analize, akivaizdu, kad duomenų konteinerio pasirinkimas turi milžinišką įtaką programos veikimo greičiui, analogiškai kaip ir v0.3 versijoje. Pritaikytos 3 strategijos dalijimo funkcijos studentų skaidymą atlieką greičiau tiek std::list, tiek std::vector atveju. 
+
+---
+### v1.1 rezultatai:
+Spartos analizė atlikta naudojant `std::vector` konteinerį su 1 mln. ir 10 mln. dydžio failais, palygintas struktūros ir klasės našumas priklausomai nuo kompiliatoriaus optimizavimo lygių (`-O1`, `-O2`, `-O3`).
+
+#### Struktūros rezultatai
+**O1**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.832109s|0.219143s|0.027216s|0.409055s|0.280362s|1.767885s|
+|stud10000000.txt|8.556473s|3.151121s|0.330100s|4.165927s|2.944832s|19.148453s|
+
+<img width="285" height="177" alt="image" src="https://github.com/user-attachments/assets/7741140f-a393-4d78-abf1-db1ce7d3a91a" />
+
+**O2**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.801438s|0.191110s|0.019715s|0.408934s|0.285308s|1.706505s|
+|stud10000000.txt|8.260891s|2.604194s|0.267753s|4.219974s|2.988103s|18.340915s|
+
+<img width="296" height="184" alt="image" src="https://github.com/user-attachments/assets/7e93e64e-e9da-4833-9762-747277cd757e" />
+
+**O3**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.796783s|0.191255s|0.019776s|0.397536s|0.283427s|1.688778s|
+|stud10000000.txt|8.252934s|2.676267s|0.239616s|4.146377s|2.929266s|18.244461s|
+
+<img width="286" height="180" alt="image" src="https://github.com/user-attachments/assets/60d940b7-b003-4e5e-9584-25766d01962d" />
+
+
+#### Klasės rezultatai
+**O1**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.943241s|0.703081s|0.045670s|0.394757s|0.278275s|2.365024s|
+|stud10000000.txt|9.738942s|7.377189s|0.504411s|3.888169s|2.811988s|24.320699s|
+
+<img width="307" height="189" alt="image" src="https://github.com/user-attachments/assets/af5c7b5a-083f-4e1d-82b7-073a461358aa" />
+
+**O2**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.933333s|0.726413s|0.043378s|0.380865s|0.271358s|2.355347s|
+|stud10000000.txt|9.843335s|8.089823s|0.465144s|3.842779s|2.826739s|25.067821s|
+
+<img width="297" height="182" alt="image" src="https://github.com/user-attachments/assets/b9693e8c-8d6a-4dc0-8a2b-3ca657390411" />
+
+**O3**
+| failas | skaitymas | rūšiavimas | dalijimas | rašymas (kietiakai) | rašymas (vargšiukai) | bendras laikas |
+|---|---|---|---|---|---|---|
+|stud1000000.txt|0.929437s|0.727630s|0.042650s|0.388480s|0.270359s|2.358556s|
+|stud10000000.txt|9.775041s|8.034228s|0.489170s|3.936042s|2.867003s|25.101484s|
+
+<img width="286" height="176" alt="image" src="https://github.com/user-attachments/assets/bb3d9fc5-f30a-4a52-8aff-54980240dca9" />
+
+
+Programos realizacija naudojant struktūras veikia greičiau nei naudojant klases, tačiau klasė užtikrina didesnį duomenų saugumą. Didžiausi laiko skirtumai matomi duomenų rūšiavimo ir dalijimo etapuose. Naudojant klases geriausias rezultatas buco pasiektas su -O1 optimizavimo lygių, tuo tarpu struktūros geriausia greičio rezultatą pasiektas su -O3. 
