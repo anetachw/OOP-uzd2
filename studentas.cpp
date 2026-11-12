@@ -17,6 +17,10 @@ double Studentas::galBalas(double (*funkcija) (std::vector<int>) = vidurkis) con
 
 }
 
+Studentas::~Studentas() {
+    paz_.clear();
+}
+
 std::istream& Studentas::readStudent(std::istream& is) {
    if (!(is >> vardas_ >> pavarde_)) return is;
     

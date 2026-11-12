@@ -15,6 +15,7 @@ private:
 public:
     Studentas() : egzaminas_(0) { };  
     Studentas(std::istream& is);
+    ~Studentas();
     inline std::string vardas() const { return vardas_; }    
     inline std::string pavarde() const { return pavarde_; } 
     inline const std::vector<int>& paz() const { return paz_; }

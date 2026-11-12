@@ -11,12 +11,12 @@
 
 
 template <typename T>
-void reserve_vietos(std::vector<T> grupe, int kiekis){
+void reserve_vietos(std::vector<T> &grupe, int kiekis){
     grupe.reserve(grupe.size() + kiekis);
 }; 
 
 template <typename T>
-void reserve_vietos(std::list<T> grupe, int kiekis){
+void reserve_vietos(std::list<T> &grupe, int kiekis){
     
 }; 
 
