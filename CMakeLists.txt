@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 add_executable(studentu_programa
     mainproject.cpp
     basic_funkcijos.cpp
-    Lfunkcijos.cpp 
-    Vfunkcijos.cpp
+    studentas.cpp 
+    list_funkcijos.cpp 
+    vector_funkcijos.cpp 
 )
