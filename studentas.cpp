@@ -8,18 +8,22 @@ Studentas::Studentas(std::istream& is) {
   readStudent(is);  
 }
 
-double Studentas::galBalas(double (*funkcija) (std::vector<int>) = vidurkis) const {
+void Studentas::galBalas() {
     if (paz_.empty()){
-        return 0.6 * egzaminas_;
+        galutinis_vid_ = 0.6 * egzaminas_;
+        galutinis_med_ = 0.6 * egzaminas_;
+    } else {
+        galutinis_vid_ = 0.4 * vidurkis(paz_) + 0.6 * egzaminas_;
+        galutinis_med_ = 0.4 * mediana(paz_) + 0.6 * egzaminas_;
     }
-    double nd_galutinis = funkcija(paz_);
-    return 0.4 * nd_galutinis + 0.6 * egzaminas_;
-
-}
+};
 
 Studentas::~Studentas() {
+    vardas_.clear();
+    pavarde_.clear();
     paz_.clear();
-}
+    egzaminas_ = 0;
+};
 
 std::istream& Studentas::readStudent(std::istream& is) {
    if (!(is >> vardas_ >> pavarde_)) return is;
@@ -44,6 +48,7 @@ std::istream& Studentas::readStudent(std::istream& is) {
         temp_paz.pop_back();          
         paz_ = temp_paz;              
     }
+    galBalas();
 
     return is;
 };
@@ -60,5 +65,5 @@ bool compareEgzaminas(const Studentas& a, const Studentas& b){
 };
 
 bool compareGalBalas(const Studentas& a , const Studentas& b){
-    return a.galBalas() > b.galBalas();
+    return a.galutinis_vid() > b.galutinis_vid();
 };

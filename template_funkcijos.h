@@ -79,6 +79,7 @@ void rankine_ivestis(T &grupe){
             }
         }
         
+        tempStudentas.galBalas();
         grupe.push_back(tempStudentas);
         std::cout << "Objekto adresas atmintyje: " << &(grupe.back()) << '\n'; 
     }
@@ -106,6 +107,8 @@ void automatine_ivestis(T &grupe, std::mt19937 &mt){
         tempStudentas.setVardas("Vardas" + std::to_string(j + 1));
         tempStudentas.setPavarde("Pavarde" + std::to_string(j + 1));
         generuoti_paz(tempStudentas, nd_kiekis, mt);
+
+        tempStudentas.galBalas();
         grupe.push_back(tempStudentas);
     }
 
@@ -145,8 +148,8 @@ template <typename T>
 void printas(const T &A){
     std::cout << "|" << std::left << std::setw(14) << A.vardas() 
               << "|" << std::left << std::setw(16) << A.pavarde() << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galBalas(vidurkis) << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galBalas(mediana)<<  "|\n";
+              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galutinis_vid() << "|"
+              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galutinis_med()<<  "|\n";
 };
 
 
@@ -198,8 +201,8 @@ void rasyti_i_faila(const T &grupe, std::string failoPavadinimas){
     for(const auto &s : grupe){
         f << "|" << std::left << std::setw(14) << s.vardas() 
           << "|" << std::left << std::setw(16) << s.pavarde() << "|"
-          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galBalas(vidurkis) << "|"
-          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galBalas(mediana)<<  "|\n";
+          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galutinis_vid() << "|"
+          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galutinis_med()<<  "|\n";
     }
     f << std::string(67, '-') << '\n';
 
