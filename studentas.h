@@ -20,7 +20,7 @@ public:
     ~Studentas();
     Studentas(const Studentas& other);
     Studentas& operator=(const Studentas& other);
-    
+
     inline std::string vardas() const { return vardas_; }    
     inline std::string pavarde() const { return pavarde_; } 
     inline const std::vector<int>& paz() const { return paz_; }
@@ -35,6 +35,9 @@ public:
     void setPazymis(int paz) { paz_.push_back(paz); }
     void setEgzaminas(int egz) { egzaminas_ = egz; }   
 };
+
+std::istream& operator>>(std::istream& is, Studentas& s);
+std::ostream& operator<<(std::ostream& os, const Studentas& s);
 
 bool compareVP(const Studentas& a, const Studentas& b);
 bool compareEgzaminas(const Studentas& a, const Studentas& b);

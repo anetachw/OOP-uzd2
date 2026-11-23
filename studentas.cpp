@@ -2,6 +2,7 @@
 #include "basic_funkcijos.h"
 #include "template_funkcijos.h"
 #include <sstream>
+#include <iomanip>
 
 
 Studentas::Studentas(std::istream& is) { 
@@ -26,7 +27,8 @@ Studentas::~Studentas() {
 };
 
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzaminas_(other.egzaminas_) {};
+    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzaminas_(other.egzaminas_), 
+      galutinis_vid_(other.galutinis_vid_), galutinis_med_(other.galutinis_med_) {};
 
 
 Studentas& Studentas::operator=(const Studentas& other) {
@@ -37,7 +39,8 @@ Studentas& Studentas::operator=(const Studentas& other) {
         egzaminas_ = other.egzaminas_;
     }
     return *this;
-}
+};
+
 
 std::istream& Studentas::readStudent(std::istream& is) {
    if (!(is >> vardas_ >> pavarde_)) return is;
@@ -65,6 +68,18 @@ std::istream& Studentas::readStudent(std::istream& is) {
     galBalas();
 
     return is;
+};
+
+std::istream& operator>>(std::istream& is, Studentas& s) {
+    return s.readStudent(is);
+};
+
+std::ostream& operator<<(std::ostream& os, const Studentas& s) {
+    os << "|" << std::left << std::setw(14) << s.vardas()
+       << "|" << std::left << std::setw(16) << s.pavarde() << "|"
+       << std::left << std::setw(16) << std::fixed << std::setprecision(2) << s.galutinis_vid() << "|"
+       << std::left << std::setw(16) << std::fixed << std::setprecision(2) << s.galutinis_med() << "|";
+    return os;
 };
 
 bool compareVP(const Studentas& a, const Studentas& b){
