@@ -37,6 +37,8 @@ Studentas& Studentas::operator=(const Studentas& other) {
         pavarde_ = other.pavarde_;
         paz_ = other.paz_;
         egzaminas_ = other.egzaminas_;
+        galutinis_vid_ = other.galutinis_vid_;
+        galutinis_med_ = other.galutinis_med_;
     }
     return *this;
 };

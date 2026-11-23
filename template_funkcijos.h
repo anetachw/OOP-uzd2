@@ -132,26 +132,13 @@ void nuskaityti_faila(T &grupe, const std::string failoPavadinimas){
     std::string eilute;
     std::getline (f, eilute);
 
-    while(true){
-        Studentas tempStudentas; 
-        if (tempStudentas.readStudent(f)){
-            grupe.push_back(tempStudentas);
-        } else{
-            break;
-        }
+    Studentas tempStudentas; 
+    while(f >> tempStudentas){
+        grupe.push_back(tempStudentas);
     }
 
     f.close();
 };
-
-template <typename T>
-void printas(const T &A){
-    std::cout << "|" << std::left << std::setw(14) << A.vardas() 
-              << "|" << std::left << std::setw(16) << A.pavarde() << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galutinis_vid() << "|"
-              << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< A.galutinis_med()<<  "|\n";
-};
-
 
 template <typename T>
 void rodyti_lentele(const T &grupe){
@@ -162,7 +149,10 @@ void rodyti_lentele(const T &grupe){
               << "|" << std::left << std::setw(16) << "Galutinis (Vid.)"
               << "|" << std::left << std::setw(16) << "Galutinis (Med.)"<< "|\n";
     std::cout << std::string(67, '-') << '\n';
-    for(const auto &B : grupe) printas(B);
+
+    for(const auto &A : grupe) {
+        std::cout << A << '\n'
+    };
     std::cout << std::string(67, '-') << '\n';
 };
 
@@ -198,11 +188,8 @@ void rasyti_i_faila(const T &grupe, std::string failoPavadinimas){
       << "|" << std::left << std::setw(16) << "Galutinis (Med.)"<< "|\n";
     f << std::string(67, '-') << '\n';
 
-    for(const auto &s : grupe){
-        f << "|" << std::left << std::setw(14) << s.vardas() 
-          << "|" << std::left << std::setw(16) << s.pavarde() << "|"
-          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galutinis_vid() << "|"
-          << std::left << std::setw(16) << std::fixed << std::setprecision(2)<< s.galutinis_med()<<  "|\n";
+    for(const auto &A : grupe){
+        f << A << '\n';
     }
     f << std::string(67, '-') << '\n';
 
