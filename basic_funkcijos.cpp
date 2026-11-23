@@ -81,7 +81,7 @@ bool failas_egzistuoja(const std::string &failoPavadinimas){
     return f.is_open();
 };
 
-double vidurkis(std::vector<int> paz){
+double vidurkis(const std::vector<int> paz){
     if (paz.empty()){
         return 0.0;
     }
@@ -89,7 +89,7 @@ double vidurkis(std::vector<int> paz){
     return suma / paz.size();
 };
 
-double mediana(std::vector<int> paz) {
+double mediana(const std::vector<int> paz) {
     if (paz.empty()) return 0.0;
 
     std::vector<int> v(paz.begin(), paz.end());

@@ -48,24 +48,22 @@ std::istream& Studentas::readStudent(std::istream& is) {
    if (!(is >> vardas_ >> pavarde_)) return is;
     
     paz_.clear();
-    paz_.reserve(10);
+    paz_.reserve(11);
     int pazymys;
     
     std::string eilute;
     std::getline(is, eilute);
-    std::stringstream ss(eilute);
-    
-    std::vector<int> temp_paz;
-    temp_paz.reserve(11);
+    static std::stringstream ss;
+    ss.clear();
+    ss.str(eilute);
 
     while (ss >> pazymys) {
-        temp_paz.push_back(pazymys);
+        paz_.push_back(pazymys);
     }
     
-    if (!temp_paz.empty()) {
-        egzaminas_ = temp_paz.back(); 
-        temp_paz.pop_back();          
-        paz_ = temp_paz;              
+    if (!paz_.empty()) {
+        egzaminas_ = paz_.back(); 
+        paz_.pop_back();                       
     }
     galBalas();
 

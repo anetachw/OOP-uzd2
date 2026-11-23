@@ -151,7 +151,7 @@ void rodyti_lentele(const T &grupe){
     std::cout << std::string(67, '-') << '\n';
 
     for(const auto &A : grupe) {
-        std::cout << A << '\n'
+        std::cout << A << '\n';
     };
     std::cout << std::string(67, '-') << '\n';
 };

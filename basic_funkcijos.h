@@ -20,8 +20,8 @@ void rodyti_meniu();
 
 void rodyti_konteineri();
 
-double vidurkis(std::vector<int> paz);
+double vidurkis(const std::vector<int> paz);
 
-double mediana(std::vector<int> paz);
+double mediana(const std::vector<int> paz);
 
 
