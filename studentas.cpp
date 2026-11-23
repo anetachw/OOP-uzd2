@@ -25,6 +25,20 @@ Studentas::~Studentas() {
     egzaminas_ = 0;
 };
 
+Studentas::Studentas(const Studentas& other)
+    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzaminas_(other.egzaminas_) {};
+
+
+Studentas& Studentas::operator=(const Studentas& other) {
+    if (this != &other) {
+        vardas_ = other.vardas_;
+        pavarde_ = other.pavarde_;
+        paz_ = other.paz_;
+        egzaminas_ = other.egzaminas_;
+    }
+    return *this;
+}
+
 std::istream& Studentas::readStudent(std::istream& is) {
    if (!(is >> vardas_ >> pavarde_)) return is;
     
