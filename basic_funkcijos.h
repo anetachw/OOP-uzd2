@@ -24,4 +24,6 @@ double vidurkis(const std::vector<int> paz);
 
 double mediana(const std::vector<int> paz);
 
+void demonstracija();
+
 

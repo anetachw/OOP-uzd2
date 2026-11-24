@@ -34,7 +34,8 @@ void rodyti_meniu(){
     std::cout << "| 5. Padalinti studentus į dvi kategorijas     |\n";
     std::cout << "| 6. Atlikti spartos analize                   |\n";
     std::cout << "| 7. Atlikti dalijimo analize                  |\n";
-    std::cout << "| 8. Išvalyti studentų duomenis                |\n";
+    std::cout << "| 8. Demonstracija / testavimas                |\n";
+    std::cout << "| 9. Išvalyti studentų duomenis                |\n";
     std::cout << "| 0. Baigti darbą                              |\n";
     std::cout << "------------------------------------------------\n";
 };
@@ -104,4 +105,17 @@ double mediana(const std::vector<int> paz) {
     }
 };
 
+void demonstracija(){
+    std::cout << "Iveskite studentą: Vardas, Pavardė, pažymiai ir egzaminas:\n";
+    Studentas s1;
+    std::cin >> s1;
+    std::cout << "\nNuskaitytas studentas1:\n" << s1 << "\n";
+
+    Studentas s2(s1);
+    std::cout << "\nNukopijuotas studentas2 naudojant kopijavimo konstruktorių:\n" << s2 << "\n";
+
+    Studentas s3;
+    s3 = s1;
+    std::cout << "\nPriskirtas studentas3 per operator=:\n" << s3 << "\n";
+};
 

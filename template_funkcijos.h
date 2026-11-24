@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "studentas.h"
+#include "basic_funkcijos.h"
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -8,6 +9,7 @@
 #include <random>
 #include <chrono>
 #include <vector>
+
 
 
 template <typename T>
@@ -335,7 +337,7 @@ void paleisti_programa(std::mt19937 &mt){
     int pasirinkimas;
         do{
             rodyti_meniu();
-            pasirinkimas = ar_skaicius("\nPasirinkite veiksma (0-8): ", 0, 8);
+            pasirinkimas = ar_skaicius("\nPasirinkite veiksma (0-9): ", 0, 9);
 
             switch(pasirinkimas){
                 case 0: 
@@ -404,7 +406,10 @@ void paleisti_programa(std::mt19937 &mt){
                         dalijimo_analize(grupe, kietiakai, vargsiukai, failai[i]);
                     }
                     break; 
-                case 8: {
+                case 8: 
+                demonstracija();
+                break;
+                case 9: {
                     grupe.clear();
                     kietiakai.clear();
                     vargsiukai.clear();
