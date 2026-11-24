@@ -153,11 +153,42 @@ Versijoje v0.3 pagrindinis dėmesys skirtas `std::vector` ir `std::list` kontein
 
 Analizuojant `std::vector` ir `std::list` konteinerių veikimo spartą pastebimi ryškūs skirtumai, kurie labiausiai išryškėja apdorojant didesnius duomenų kiekius. Mažesniems failams (stud1000.txt ir stud10000.txt) laiko sąnaudos tarp abiejų variantų skiriasi nežymiai ir visų trijų dalijimo strategijų trukmė išlieka milisekundžių ribose. Tačiau didėjant studentų skaičiui iki 10 000 000, `std::vector` konteineris pademonstravo geresnį efektyvumą: jame pirmasis dalijimas užtruko apie 0.55 s, o antrasis – 0.32 s, tuo tarpu `std::list` konteineryje šie procesai reikalavo atitinkamai net 14.15 s ir 6.42 s. Trečiasis dalijimas abu kartus išliko greičiausias ir efektyviausias, tačiau pirmame konteineryje jis taip pat atliktas pastebimai sparčiau (0.16 s lyginant su 3.67 s).
 
+---
+
 ### Versija v1.1
 Šioje versijoje pagrindinis dėmesys skirtas perėjimui nuo struktūros prie C++ klasės. 
 #### Pagrindiniai releaso ypatumai:
 - **Perėjimas prie class:** Struktūra `Studentas` buvo pakeista į pilnavertę klasę, aiškiai atskiriant duomenų kapsuliavimą ir interfeisą.
 - **Konstruktoriai ir destruktoriai:** Klasėje realizuoti konstruktoriai bei destruktoriai, užtikrinantys saugų objektų inicijavimą ir atminties valdymą.
+
+---
+
+### Versija v1.2
+Šioje versijoje:
+* Realizuota trijų metodų taisyklė (*Rule of Three*): `Studentas` klasė papildyta kopijavimo konstruktoriumi (`Studentas(const Studentas&)`) bei kopijavimo priskyrimo operatoriumi (`operator=`).
+* Perdengti įvesties ir išvesties operatoriai (`>>` ir `<<`): pritaikyti patogiam darbui su `Studentas` klasės objektais ir įvairiais duomenų srautais (`std::istream`, `std::ostream`).
+
+#### Perdengtų įvesties ir išvesties metodų veikimas
+
+#### 1. Duomenų įvestis
+
+* **Iš failo (`operator>>` ir `Studentas::readStudent`):**
+  * Perdengtas įvesties operatorius `std::istream& operator>>(std::istream& is, Studentas& s)` nuskaito vieną studento įrašą iš paduoto srauto (`std::ifstream`).
+  * Vykdant `while (f >> tempStudentas)`, iš eilutės paimamas vardas, pavardė, visi namų darbų pažymiai bei paskutinis skaičius, kuris priskiriamas egzaminui, ir iškart apskaičiuojami galutiniai balai (`galBalas()`).
+* **Rankiniu būdu (`rankine_ivestis`):**
+  * Vartotojas konsolėje nuosekliai įveda studentų skaičių, vardą, pavardę, namų darbų pažymius (baigiama paspaudus `ENTER`) bei egzamino pažymį su įvesties validacija. Duomenys į `Studentas` objektą įrašomi per klasės *setterius*, o pabaigoje apskaičiuojamas galutinis balas.
+* **Automatiniu būdu (`automatine_ivestis`):**
+  * Atsitiktinių skaičių generatoriaus (`std::mt19937`) pagalba sugeneruojami studentų vardai, pavardės, nurodytas namų darbų pažymių kiekis bei egzamino įvertinimas, užpildant objektą per klasės metodus.
+
+#### 2. Duomenų išvestis
+
+* **Į ekraną (`operator<<` ir `rodyti_lentele`):**
+  * Perdengtas išvesties operatorius `std::ostream& operator<<(std::ostream& os, const Studentas& s)` suformatuoja studento vardą, pavardę, galutinį balą (vidurkį) ir galutinį balą (medianą) į vientisą lentelės eilutę.
+  * Kai studentų skaičius neviršija 30, rezultatai per `std::cout << s` išvedami tiesiai į konsolę.
+* **Į failą (`operator<<` ir `rasyti_i_faila`):**
+  * Naudojamas tas pats perdengtas operatorius `f << s`, tačiau išvedimo srautu tampa failas (`std::ofstream`).
+  * Tai taikoma tiek išsaugant didelius sugeneruotus/nuskaitytus sąrašus (> 30 įrašų), tiek įrašant padalintas studentų grupes į `kietiakai_*.txt` ir `vargsiukai_*.txt` failus.
+
 
 ---
 ### Spartos analizė
@@ -316,3 +347,18 @@ Spartos analizė atlikta naudojant `std::vector` konteinerį su 1 mln. ir 10 mln
 
 
 Programos realizacija naudojant struktūras veikia greičiau nei naudojant klases, tačiau klasė užtikrina didesnį duomenų saugumą. Didžiausi laiko skirtumai matomi duomenų rūšiavimo ir dalijimo etapuose. Naudojant klases geriausias rezultatas buco pasiektas su -O1 optimizavimo lygių, tuo tarpu struktūros geriausia greičio rezultatą pasiektas su -O3. 
+
+### v1.2 rezultatai:
+**std::vector -O3**
+|failas|skaitymas|rūšiavimas|dalijimas|rašymas (kietiakai)|rašymas (vargšiukai)|bendras laikas|
+|---|---|---|---|---|---|---|
+|stud1000.txt|0.003507s|0.000358s|0.000038s|0.001684s|0.000929s|0.006517s|
+|stud10000.txt|0.014394s|0.001646s|0.000161s|0.004131s|0.002883s|0.023215s|
+|stud100000.txt|0.097073s|0.012012s|0.001273s|0.029316s|0.021822s|0.161497s|
+|stud1000000.txt|0.989585s|0.124615s|0.015228s|0.306614s|0.213744s|1.649786s|
+|stud10000000.txt|10.139254s|1.611448s|0.240617s|3.098757s|2.255660s|17.345735s|
+
+<img width="345" height="485" alt="image" src="https://github.com/user-attachments/assets/c83adbeb-bb27-4eac-906d-1da3443ff3d0" />
+
+Rezultatai rodo, kad daugiausia laiko prireikia duomenų nuskaitymui. Dabartinė programa, nuskaitant duomenis iš failo, iškart apskaičiuoja ir išsaugo studentų galutinį balą — tai pagreitina rūšiavimą, nes jo metu nebereikia kiekvieną kartą iš naujo skaičiuoti studento galutinio balo.
+
