@@ -97,7 +97,7 @@ void generuoti_paz(T &A, int count, std::mt19937 &mt){
         A.setPazymis(num);
     }
     A.setEgzaminas(dist(mt));
-};
+}
 
 template <typename T>
 void automatine_ivestis(T &grupe, std::mt19937 &mt){
@@ -268,7 +268,7 @@ void spartos_analize(T &grupe, T &kietiakai, T &vargsiukai, const std::string fa
     std::cout << "Vidutinis kietiakių įrašymas į failą:  " << vid_kietiakai << "s\n";
     std::cout << "Vidutinis vargšiukų įrašymas į failą:  " << vid_vargsiukai << "s\n";
     std::cout << "Bendras vidutinis testo laikas:        " << bendras_vid << "s\n";
-};
+}
 
 
 template <typename T> 
@@ -322,7 +322,7 @@ void dalijimo_analize(T &grupe, T &kietiakai, T &vargsiukai, const std::string f
         std::cout << "Vidutinis studentų dalijimas 2:          " << vid_dalijimas2 << "s\n";
         std::cout << "Vidutinis studentų dalijimas 3:          " << vid_dalijimas3 << "s\n";
 
-};
+}
 
 
 const int failu_kiekis = 5;
@@ -419,4 +419,4 @@ void paleisti_programa(std::mt19937 &mt){
                 }   
             }
         } while(pasirinkimas != 0);
-};
+}

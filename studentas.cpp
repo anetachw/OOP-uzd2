@@ -74,7 +74,7 @@ std::istream& Studentas::readStudent(std::istream& is) {
 }
 
 void Studentas::zmogus_info() const {
-    std::cout << vardas_ << " " << pavarde_ << '\n';
+    std::cout << '\n' << vardas_ << " " << pavarde_ << '\n';
 
 }
 

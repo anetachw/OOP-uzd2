@@ -106,8 +106,11 @@ double mediana(const std::vector<int> paz) {
 };
 
 void demonstracija(){
-    std::cout << "Iveskite studentą: Vardas, Pavardė, pažymiai ir egzaminas:\n";
+    // Zmogus z; negalima sukurti abstrakcios klases objekto
+
     Studentas s1;
+    std::cout << "Iveskite studentą: Vardas, Pavardė, pažymiai ir egzaminas:\n";
+
     std::cin >> s1;
     std::cout << "\nNuskaitytas studentas1:\n" << s1 << "\n";
 
@@ -117,5 +120,7 @@ void demonstracija(){
     Studentas s3;
     s3 = s1;
     std::cout << "\nPriskirtas studentas3 per operator=:\n" << s3 << "\n";
+
+    s1.zmogus_info();
 };
 

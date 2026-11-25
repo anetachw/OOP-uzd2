@@ -7,11 +7,11 @@
 
 void rusiavimasPV(std::list<Studentas> &grupe){
     grupe.sort(compareVP);
-};
+}
 
 void rusiavimasG(std::list<Studentas> &grupe){
     grupe.sort(compareGalBalas);
-};
+}
 
 void dalinti_studentus1(std::list<Studentas> &grupe, std::list<Studentas> &kietiakai, std::list<Studentas> &vargsiukai){
     for (auto it = grupe.begin(); it != grupe.end(); it++){
@@ -22,7 +22,8 @@ void dalinti_studentus1(std::list<Studentas> &grupe, std::list<Studentas> &kieti
             vargsiukai.push_back(*it);
         }
     }
-}; 
+}
+
 void dalinti_studentus2(std::list<Studentas> &grupe, std::list<Studentas> &vargsiukai){
     for (auto it = grupe.end(); it != grupe.begin(); ){
         --it;
@@ -35,7 +36,7 @@ void dalinti_studentus2(std::list<Studentas> &grupe, std::list<Studentas> &vargs
           continue;
         }
     }
-};
+}
 
 void dalinti_studentus3(std::list<Studentas> &grupe, std::list<Studentas> &vargsiukai){
     for (auto it = grupe.begin(); it != grupe.end(); ){
