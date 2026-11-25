@@ -27,8 +27,11 @@ Studentas::~Studentas() {
 };
 
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzaminas_(other.egzaminas_), 
-      galutinis_vid_(other.galutinis_vid_), galutinis_med_(other.galutinis_med_) {};
+    : Zmogus(other),
+      paz_(other.paz_), 
+      egzaminas_(other.egzaminas_), 
+      galutinis_vid_(other.galutinis_vid_), 
+      galutinis_med_(other.galutinis_med_) {};
 
 
 Studentas& Studentas::operator=(const Studentas& other) {
@@ -69,6 +72,11 @@ std::istream& Studentas::readStudent(std::istream& is) {
 
     return is;
 };
+
+void Studentas::zmogus_info() const {
+    std::cout << vardas_ << " " << pavarde_ << '\n';
+
+}
 
 std::istream& operator>>(std::istream& is, Studentas& s) {
     return s.readStudent(is);
