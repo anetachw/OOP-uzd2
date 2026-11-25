@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <list>
 #include <iostream>
 #include <utility>
 
@@ -52,7 +51,7 @@ public:
     void galBalas();
     void setPazymis(int paz) { paz_.push_back(paz); }
     void setEgzaminas(int egz) { egzaminas_ = egz; }
-    void zmogus_info() const;   
+    void zmogus_info() const override;   
 };
 
 std::istream& operator>>(std::istream& is, Studentas& s);

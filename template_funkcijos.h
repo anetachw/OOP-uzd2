@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <fstream> 
 #include <random>
+#include <list>
 #include <chrono>
 #include <vector>
 
@@ -15,12 +16,12 @@
 template <typename T>
 void reserve_vietos(std::vector<T> &grupe, int kiekis){
     grupe.reserve(grupe.size() + kiekis);
-}; 
+}
 
 template <typename T>
 void reserve_vietos(std::list<T> &grupe, int kiekis){
     
-}; 
+}
 
 template <typename T>
 void rankine_ivestis(T &grupe){
@@ -85,7 +86,7 @@ void rankine_ivestis(T &grupe){
         grupe.push_back(tempStudentas);
         std::cout << "Objekto adresas atmintyje: " << &(grupe.back()) << '\n'; 
     }
-};
+}
 
 template <typename T>
 void generuoti_paz(T &A, int count, std::mt19937 &mt){
@@ -114,7 +115,7 @@ void automatine_ivestis(T &grupe, std::mt19937 &mt){
         grupe.push_back(tempStudentas);
     }
 
-};
+}
 
 template <typename T>
 void nuskaityti_faila(T &grupe, const std::string failoPavadinimas){
@@ -172,7 +173,7 @@ void rodyti_rezultatus(const T &grupe){
     } else {
         rodyti_lentele(grupe);
     }
-};
+}
 
 template <typename T>
 void rasyti_i_faila(const T &grupe, std::string failoPavadinimas){
@@ -196,7 +197,7 @@ void rasyti_i_faila(const T &grupe, std::string failoPavadinimas){
     f << std::string(67, '-') << '\n';
 
     f.close();
-};
+}
 
 template <typename T>
 void rusiavimo_meniu(T &grupe){
@@ -210,7 +211,7 @@ void rusiavimo_meniu(T &grupe){
     } else if (r == 2){
         rusiavimasG(grupe);
     }
-};
+}
 
 
 template <typename T> 
