@@ -367,7 +367,7 @@ Programos realizacija naudojant struktūras veikia greičiau nei naudojant klase
 |stud1000000.txt|0.989585s|0.124615s|0.015228s|0.306614s|0.213744s|1.649786s|
 |stud10000000.txt|10.139254s|1.611448s|0.240617s|3.098757s|2.255660s|17.345735s|
 
-<img width="345" height="485" alt="image" src="https://github.com/user-attachments/assets/c83adbeb-bb27-4eac-906d-1da3443ff3d0" />
+<img width="305" height="475" alt="image" src="https://github.com/user-attachments/assets/c83adbeb-bb27-4eac-906d-1da3443ff3d0" />
 
 Rezultatai rodo, kad daugiausia laiko prireikia duomenų nuskaitymui. Dabartinė programa, nuskaitant duomenis iš failo, iškart apskaičiuoja ir išsaugo studentų galutinį balą — tai pagreitina rūšiavimą, nes jo metu nebereikia kiekvieną kartą iš naujo skaičiuoti studento galutinio balo.
 
@@ -376,12 +376,14 @@ Rezultatai rodo, kad daugiausia laiko prireikia duomenų nuskaitymui. Dabartinė
 **std::vector -O3**
 |failas|skaitymas|rūšiavimas|dalijimas|rašymas (kietiakai)|rašymas (vargšiukai)|bendras laikas|
 |---|---|---|---|---|---|---|
-|stud1000.txt|0.001662s|0.000162s|0.000011s|0.000590s|0.000370s|0.002794s|
-|stud10000.txt|0.011087s|0.001468s|0.000132s|0.003319s|0.002238s|0.018244s|
-|stud100000.txt|0.102594s|0.013600s|0.001217s|0.030364s|0.022274s|0.170049s|
-|stud1000000.txt|1.023980s|0.120748s|0.014992s|0.309187s|0.214355s|1.683263s|
-|stud10000000.txt|9.937622s|1.504970s|0.193520s|3.085624s|2.206961s|16.928697s|
+| stud1000.txt | 0.003841s | 0.000430s | 0.000043s | 0.001438s | 0.000888s | 0.006640s |
+| stud10000.txt | 0.015250s | 0.001797s | 0.000155s | 0.004169s | 0.002940s | 0.024311s |
+| stud100000.txt | 0.104713s | 0.013205s | 0.001230s | 0.031801s | 0.022959s | 0.173908s |
+| stud1000000.txt | 1.039926s | 0.130925s | 0.013983s | 0.300776s | 0.211793s | 1.697403s |
+| stud10000000.txt | 10.475545s | 1.532275s | 0.200398s | 3.054554s | 2.217484s | 17.480256s |
 
-<img width="335" height="500" alt="image" src="https://github.com/user-attachments/assets/1dce3f0e-784a-48cd-97d2-ae572ea6f8f0" />
+<img width="244" height="385" alt="image" src="https://github.com/user-attachments/assets/36cb6aec-c275-4176-baba-4a8a89b4439d" />
+
+
 
 
