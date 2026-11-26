@@ -21,7 +21,7 @@ int ar_skaicius(std::string tekstas, int min, int max){
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-}; 
+}
 
 void rodyti_meniu(){
     std::cout << "\n------------------------------------------------\n";
@@ -38,7 +38,7 @@ void rodyti_meniu(){
     std::cout << "| 9. Išvalyti studentų duomenis                |\n";
     std::cout << "| 0. Baigti darbą                              |\n";
     std::cout << "------------------------------------------------\n";
-};
+}
 
 void rodyti_konteineri(){
     std::cout << "\n------------------------------\n";
@@ -47,7 +47,7 @@ void rodyti_konteineri(){
     std::cout << "| 1. Vektorius               |\n";
     std::cout << "| 2. Sąrašas                 |\n";
     std::cout << "------------------------------\n";
-};
+}
 
 void generuoti_faila(std::string failoPavadinimas, int stud_kiekis, int nd_kiekis, std::mt19937 &mt){
     std::ofstream f(failoPavadinimas);
@@ -75,12 +75,12 @@ void generuoti_faila(std::string failoPavadinimas, int stud_kiekis, int nd_kieki
     }
 
     f.close();
-};
+}
 
 bool failas_egzistuoja(const std::string &failoPavadinimas){
     std::ifstream f(failoPavadinimas.data());
     return f.is_open();
-};
+}
 
 double vidurkis(const std::vector<int> paz){
     if (paz.empty()){
@@ -88,7 +88,7 @@ double vidurkis(const std::vector<int> paz){
     }
     double suma = std::accumulate(paz.begin(), paz.end(), 0.0);
     return suma / paz.size();
-};
+}
 
 double mediana(const std::vector<int> paz) {
     if (paz.empty()) return 0.0;
@@ -103,7 +103,7 @@ double mediana(const std::vector<int> paz) {
     } else {
         return (v[(n - 1) / 2] + v[n / 2]) / 2.0;
     }
-};
+}
 
 void demonstracija(){
     // Zmogus z; negalima sukurti abstrakcios klases objekto
@@ -122,5 +122,5 @@ void demonstracija(){
     std::cout << "\nPriskirtas studentas3 per operator=:\n" << s3 << "\n";
 
     s1.zmogus_info();
-};
+}
 

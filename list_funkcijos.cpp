@@ -47,4 +47,4 @@ void dalinti_studentus3(std::list<Studentas> &grupe, std::list<Studentas> &vargs
             ++it;
         }
     }
-}; 
+}
