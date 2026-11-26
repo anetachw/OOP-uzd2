@@ -165,30 +165,39 @@ Analizuojant `std::vector` ir `std::list` konteinerių veikimo spartą pastebimi
 
 ### Versija v1.2
 Šioje versijoje:
-* Realizuota trijų metodų taisyklė (*Rule of Three*): `Studentas` klasė papildyta kopijavimo konstruktoriumi (`Studentas(const Studentas&)`) bei kopijavimo priskyrimo operatoriumi (`operator=`).
-* Perdengti įvesties ir išvesties operatoriai (`>>` ir `<<`): pritaikyti patogiam darbui su `Studentas` klasės objektais ir įvairiais duomenų srautais (`std::istream`, `std::ostream`).
+- Realizuota trijų metodų taisyklė (*Rule of Three*): `Studentas` klasė papildyta kopijavimo konstruktoriumi (`Studentas(const Studentas&)`) bei kopijavimo priskyrimo operatoriumi (`operator=`).
+- Perdengti įvesties ir išvesties operatoriai (`>>` ir `<<`): pritaikyti patogiam darbui su `Studentas` klasės objektais ir įvairiais duomenų srautais (`std::istream`, `std::ostream`).
 
 #### Perdengtų įvesties ir išvesties metodų veikimas
 
 #### 1. Duomenų įvestis
 
-* **Iš failo (`operator>>` ir `Studentas::readStudent`):**
+- **Iš failo (`operator>>` ir `Studentas::readStudent`):**
   * Perdengtas įvesties operatorius `std::istream& operator>>(std::istream& is, Studentas& s)` nuskaito vieną studento įrašą iš paduoto srauto (`std::ifstream`).
   * Vykdant `while (f >> tempStudentas)`, iš eilutės paimamas vardas, pavardė, visi namų darbų pažymiai bei paskutinis skaičius, kuris priskiriamas egzaminui, ir iškart apskaičiuojami galutiniai balai (`galBalas()`).
-* **Rankiniu būdu (`rankine_ivestis`):**
+- **Rankiniu būdu (`rankine_ivestis`):**
   * Vartotojas konsolėje nuosekliai įveda studentų skaičių, vardą, pavardę, namų darbų pažymius (baigiama paspaudus `ENTER`) bei egzamino pažymį su įvesties validacija. Duomenys į `Studentas` objektą įrašomi per klasės *setterius*, o pabaigoje apskaičiuojamas galutinis balas.
-* **Automatiniu būdu (`automatine_ivestis`):**
+- **Automatiniu būdu (`automatine_ivestis`):**
   * Atsitiktinių skaičių generatoriaus (`std::mt19937`) pagalba sugeneruojami studentų vardai, pavardės, nurodytas namų darbų pažymių kiekis bei egzamino įvertinimas, užpildant objektą per klasės metodus.
 
 #### 2. Duomenų išvestis
 
-* **Į ekraną (`operator<<` ir `rodyti_lentele`):**
+- **Į ekraną (`operator<<` ir `rodyti_lentele`):**
   * Perdengtas išvesties operatorius `std::ostream& operator<<(std::ostream& os, const Studentas& s)` suformatuoja studento vardą, pavardę, galutinį balą (vidurkį) ir galutinį balą (medianą) į vientisą lentelės eilutę.
   * Kai studentų skaičius neviršija 30, rezultatai per `std::cout << s` išvedami tiesiai į konsolę.
-* **Į failą (`operator<<` ir `rasyti_i_faila`):**
+- **Į failą (`operator<<` ir `rasyti_i_faila`):**
   * Naudojamas tas pats perdengtas operatorius `f << s`, tačiau išvedimo srautu tampa failas (`std::ofstream`).
   * Tai taikoma tiek išsaugant didelius sugeneruotus/nuskaitytus sąrašus (> 30 įrašų), tiek įrašant padalintas studentų grupes į `kietiakai_*.txt` ir `vargsiukai_*.txt` failus.
 
+---
+
+### Versija v1.5
+Šioje versijoje realizuota:
+- **Abstrakti bazinė klasė `Zmogus`:** aprašo bendrus žmogaus duomenis (`vardas_`, `pavarde_`), bendrus metodus, virtualų destruktorių (`virtual ~Zmogus();`) ir grynąją virtualiąją funkciją (`virtual void zmogus_info() const = 0;`), todėl tiesioginis `Zmogus` tipo objektų kūrimas negalimas. *(žiūrėti prisegta nuotrauka)*
+<img width="500" height="55" alt="image" src="https://github.com/user-attachments/assets/4b623ad5-f2f0-4ac5-85f4-83e9613934b5" />
+
+- **Išvestinė klasė `Studentas : public Zmogus`:** paveldi `Zmogus` narius, priduria studentui skirtus laukus (namų darbų pažymius, egzamino įvertinimą, galutinius balus), realizuoja `zmogus_info() const override` bei išlaiko v1.2 realizuotą trijų metodų taisyklę ir perdengtus `>>` / `<<` operatorius.
+- **Išlaikyta v1.2 veikimo logika:** duomenų įvestis (rankinė, automatinė, iš failo), rūšiavimas, dalijimas į grupes, spartos analizė su konteineriais.
 
 ---
 ### Spartos analizė
@@ -345,9 +354,9 @@ Spartos analizė atlikta naudojant `std::vector` konteinerį su 1 mln. ir 10 mln
 
 <img width="286" height="176" alt="image" src="https://github.com/user-attachments/assets/bb3d9fc5-f30a-4a52-8aff-54980240dca9" />
 
-
 Programos realizacija naudojant struktūras veikia greičiau nei naudojant klases, tačiau klasė užtikrina didesnį duomenų saugumą. Didžiausi laiko skirtumai matomi duomenų rūšiavimo ir dalijimo etapuose. Naudojant klases geriausias rezultatas buco pasiektas su -O1 optimizavimo lygių, tuo tarpu struktūros geriausia greičio rezultatą pasiektas su -O3. 
 
+---
 ### v1.2 rezultatai:
 **std::vector -O3**
 |failas|skaitymas|rūšiavimas|dalijimas|rašymas (kietiakai)|rašymas (vargšiukai)|bendras laikas|
@@ -361,4 +370,18 @@ Programos realizacija naudojant struktūras veikia greičiau nei naudojant klase
 <img width="345" height="485" alt="image" src="https://github.com/user-attachments/assets/c83adbeb-bb27-4eac-906d-1da3443ff3d0" />
 
 Rezultatai rodo, kad daugiausia laiko prireikia duomenų nuskaitymui. Dabartinė programa, nuskaitant duomenis iš failo, iškart apskaičiuoja ir išsaugo studentų galutinį balą — tai pagreitina rūšiavimą, nes jo metu nebereikia kiekvieną kartą iš naujo skaičiuoti studento galutinio balo.
+
+---
+### v1.5 rezultatai:
+**std::vector -O3**
+|failas|skaitymas|rūšiavimas|dalijimas|rašymas (kietiakai)|rašymas (vargšiukai)|bendras laikas|
+|---|---|---|---|---|---|---|
+|stud1000.txt|0.001662s|0.000162s|0.000011s|0.000590s|0.000370s|0.002794s|
+|stud10000.txt|0.011087s|0.001468s|0.000132s|0.003319s|0.002238s|0.018244s|
+|stud100000.txt|0.102594s|0.013600s|0.001217s|0.030364s|0.022274s|0.170049s|
+|stud1000000.txt|1.023980s|0.120748s|0.014992s|0.309187s|0.214355s|1.683263s|
+|stud10000000.txt|9.937622s|1.504970s|0.193520s|3.085624s|2.206961s|16.928697s|
+
+<img width="335" height="500" alt="image" src="https://github.com/user-attachments/assets/1dce3f0e-784a-48cd-97d2-ae572ea6f8f0" />
+
 
