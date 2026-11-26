@@ -56,10 +56,8 @@ std::istream& Studentas::readStudent(std::istream& is) {
     
     std::string eilute;
     std::getline(is, eilute);
-    static std::stringstream ss;
-    ss.clear();
-    ss.str(eilute);
-
+    
+    std::stringstream ss(eilute);
     while (ss >> pazymys) {
         paz_.push_back(pazymys);
     }

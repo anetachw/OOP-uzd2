@@ -34,7 +34,7 @@ void dalinti_studentus1(std::vector<Studentas> &grupe, std::vector<Studentas> &k
 
 void dalinti_studentus2(std::vector<Studentas> &grupe, std::vector<Studentas> &vargsiukai){
     vargsiukai.reserve(grupe.size() / 2); 
-    while (grupe.back().galutinis_vid() < 5.0){
+    while (!grupe.empty() && grupe.back().galutinis_vid() < 5.0){
         vargsiukai.push_back(grupe.back());
         grupe.pop_back();
     }
